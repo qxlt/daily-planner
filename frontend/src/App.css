@@ -1,0 +1,24 @@
+.forest-green-font {
+    color: #65480e;
+}
+
+.forest-green-bg {
+    background-color: #65480e;
+}
+.hover\:forest-green-bg:hover {
+    background-color: #65480e;
+}
+
+.pink-dot-font {
+    color: #f1dad9;
+}
+
+.hover\:pink-dot-font:hover {
+    color: #f1dad9;
+}
+
+.jacques-francois-regular {
+  font-family: "Jacques Francois", serif;
+  font-weight: 400;
+  font-style: normal;
+}
