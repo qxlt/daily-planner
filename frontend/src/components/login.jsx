@@ -1,7 +1,41 @@
 import React, { useState } from 'react';
 import navbar from "./navBar.jsx";
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+    const [loginCred, setLoginCred] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+
+    const handlesubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch("http://localhost:3001/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ login_credential: loginCred, password })
+            });
+            const data = await res.json();
+            if (res.ok) {
+        // Successful login
+        console.log("Login success:", data);
+        navigate("/addtask");
+      } else {
+        // Backend returned error
+        setError(data.error || "Login failed");
+        console.log(error.error);
+      }
+    } catch (err) {
+      setError("Network error");
+      console.error(err.message);
+    }
+    };
 
     return(
         <div className="bg-[url('./pics/pink-beige-polka-dot.png')] bg-cover 
@@ -16,17 +50,21 @@ const Login = () => {
                     <div className="h-1/3 w-full flex flex-col justify-center items-center mb-2">        
                         <label className="forest-green-font jacques-francois-regular 
                         text-2xl w-full text-left mb-2" htmlFor="username">Username/Email:</label>
-                        <input className="bg-zinc-100 w-full p-2 rounded-3xl h-12 jacques-francois-regular" 
+                        <input autoFocus onChange={(e) => setLoginCred(e.target.value)} 
+                        className="bg-zinc-100 w-full p-2 rounded-3xl h-12 jacques-francois-regular
+                        focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300" 
                         type="text" id="username" name="username" />
                     </div>
                     <div className="h-1/3 w-full flex flex-col justify-center items-center mb-2">
                         <label className="forest-green-font jacques-francois-regular text-2xl 
                         mb-2 w-full text-left" htmlFor="password">Password:<span className="text-red-500" onClick={() => setShowRules(!showRules)}>*</span></label>
-                        <input className="bg-zinc-100 p-2 w-full rounded-3xl h-12 jacques-francois-regular" 
+                        <input onChange={(e) => setPassword(e.target.value)} 
+                        className="bg-zinc-100 p-2 w-full rounded-3xl h-12 jacques-francois-regular
+                        focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300" 
                         type="password" id="password" name="password" />
                     </div>
                     <div className="h-1/3 flex flex-col justify-center items-center my-3">
-                        <button className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
+                        <button onClick={handlesubmit} className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
                     text-xl tracking-wider hover:forest-green-bg hover:!text-zinc-100 hover:shadow-lg hover:scale-105 
                     transition duration-300 ease-in-out cursor-pointer">
                         Submit

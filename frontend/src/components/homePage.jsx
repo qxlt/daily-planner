@@ -17,7 +17,7 @@ const HomePage = () => {
                 </h4>
             </Link>    
             <h1 className="forest-green-font text-7xl text-center 
-            bg-[url('./pics/floral-banner.png')] p-10 bg-cover 
+            bg-[url('./pics/floral-banner.png')] p-10 bg-repeat-x bg-cover shadow-lg
             jacques-francois-regular tracking-wider ">Daily Planner.</h1>
             <div className="text-center bottom-3 absolute w-full jacques-francois-regular forest-green-font">
                 <hr className="" />
