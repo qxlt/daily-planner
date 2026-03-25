@@ -21,7 +21,12 @@ const HomePage = () => {
             jacques-francois-regular tracking-wider ">Daily Planner.</h1>
             <div className="text-center bottom-3 absolute w-full jacques-francois-regular forest-green-font">
                 <hr className="" />
-                <p>&copy; 2026 <Link to="/about" className="underline hover:text-white hover:bg-neutral-400 hover:bg-opacity-50 hover:cursor-pointer">Daily Planner.</Link> All rights reserved.</p>
+                <p>&copy; 2026 
+                    <Link to="/about" className="underline hover:text-white hover:bg-neutral-400 
+                    hover:bg-opacity-50 hover:cursor-pointer">
+                    Daily Planner.
+                    </Link> All rights reserved.
+                </p>
             </div>
         </div>
     </div>)

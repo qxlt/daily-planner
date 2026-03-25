@@ -5,6 +5,7 @@ import Signup from "./components/signup.jsx";
 import About from "./components/about.jsx";
 import Login from "./components/login.jsx";
 import AddTask from "./components/addTask.jsx";
+import Profile from "./components/profile.jsx";
 
 export default function App() {
   return (  
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/addtask" element={<AddTask />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
 
