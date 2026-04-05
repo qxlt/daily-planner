@@ -6,6 +6,7 @@ import About from "./components/about.jsx";
 import Login from "./components/login.jsx";
 import AddTask from "./components/addTask.jsx";
 import Profile from "./components/profile.jsx";
+import Timetable from "./components/timetable.jsx"
 
 export default function App() {
   return (  
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/signin" element={<Login />} />
           <Route path="/addtask" element={<AddTask />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/monthly-timetable" element={<Timetable />} />
         </Routes>
       </BrowserRouter>
 

@@ -28,8 +28,9 @@ const Login = () => {
         navigate("/addtask");
       } else {
         // Backend returned error
-        setError(data.error || "Login failed");
-        console.log(error.error);
+        const message = data.error || "Login failed";
+        setError(message);
+        console.log("Backend error:", message);
       }
     } catch (err) {
       setError("Network error");

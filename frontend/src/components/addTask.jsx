@@ -3,6 +3,7 @@ import { faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
+
 const AddTask = () => {
 
   const [input, setInput] = useState("");
@@ -82,7 +83,7 @@ const AddTask = () => {
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
               jacques-francois-regular forest-green-font hover:underline">View Monthly Calendar</Link>
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
-              jacques-francois-regular forest-green-font hover:underline">View Current Timetable</Link>
+              jacques-francois-regular forest-green-font hover:underline" to="/monthly-timetable">View Current Timetable</Link>
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
               jacques-francois-regular forest-green-font hover:underline">Settings</Link>
             </li>
