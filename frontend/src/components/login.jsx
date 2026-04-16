@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import navbar from "./navBar.jsx";
 import { useNavigate } from 'react-router-dom';
-import { setAuthSession } from "../lib/auth.js";
+import { buildProtectedPath, setAuthSession } from "../lib/auth.js";
 
 const Login = () => {
 
@@ -30,7 +30,7 @@ const Login = () => {
                 }
                 setError("");
                 alert(`Congrats! ${message}`);
-                navigate("/addtask");
+                navigate(buildProtectedPath("/addtask", data.user?.username));
             } else {
                 const message = data.error || "Something is wrong with your login credentials.";
                 setError(message);

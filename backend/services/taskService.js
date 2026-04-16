@@ -1,7 +1,7 @@
-import e from "express";
 import { supabase } from "../lib/supabase.js";
 
 export const createTasks = async (
+    associated_user,
     description, 
     start_time, 
     end_time, 
@@ -41,7 +41,8 @@ export const createTasks = async (
             created_at, 
             updated_at, 
             date_assigned, 
-            length 
+            length,
+            associated_user
         }])
         .select()
         .single();
@@ -49,25 +50,27 @@ export const createTasks = async (
     return { data, error };
 }
 
-export const getAllTasks = async () => {
+export const getAllTasks = async (associated_user) => {
     const { data, error } = await supabase
         .from("Tasks")
-        .select("*");
+        .select("*")
+        .eq("associated_user", associated_user);
         
     return { data, error };
 }
 
-export const getOneTaskById = async (id) => {
+export const getOneTaskById = async (id, associated_user) => {
     const { data, error } = await supabase
         .from("Tasks")
         .select("*")
         .eq("id", id)
+        .eq("associated_user", associated_user)
         .single();
         
     return { data, error };
 }
 
-export const getTasksByDate = async (date) => {
+export const getTasksByDate = async (date, associated_user) => {
     const month = date.slice(0, 2);
     const day = date.slice(2, 4);
     const year = date.slice(4, 8);
@@ -75,28 +78,32 @@ export const getTasksByDate = async (date) => {
     const { data, error } = await supabase
         .from("Tasks")
         .select("*")
-        .eq("date_assigned", isoDate);
+        .eq("date_assigned", isoDate)
+        .eq("associated_user", associated_user);
         
     return { data, error };
 }
 
-export const updateOneTask = async (id, updates) => {
+export const updateOneTask = async (id, updates, associated_user) => {
     const updated_at = new Date().toISOString();
+    const { associated_user: _ignoredUser, ...safeUpdates } = updates;
     const { data, error } = await supabase
         .from("Tasks")
-        .update({ ...updates, updated_at })
+        .update({ ...safeUpdates, updated_at })
         .eq("id", id)
+        .eq("associated_user", associated_user)
         .select()
         .single();
         
     return { data, error };
 }
 
-export const deleteOneTask = async (id) => {
+export const deleteOneTask = async (id, associated_user) => {
     const { data, error } = await supabase
         .from("Tasks")
         .delete()
         .eq("id", id)
+        .eq("associated_user", associated_user)
         .select()
         .single();
         

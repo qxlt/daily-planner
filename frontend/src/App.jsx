@@ -13,15 +13,18 @@ export default function App() {
   return (  
       <BrowserRouter>
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Login />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/addtask" element={<AddTask />} />
-            <Route path="/manual-tasks" element={<CreateManualTasks />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/monthly-timetable" element={<Timetable />} />
-            <Route path="/detailed-timetable" element={<DetailedTimetable />} />
+
+          {/* Protected routes with username */}
+          <Route path="/u/:username" element={<ProtectedRoute />}>
+            <Route path="addtask" element={<AddTask />} />
+            <Route path="manual-tasks" element={<CreateManualTasks />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="monthly-timetable" element={<Timetable />} />
+            <Route path="detailed-timetable" element={<DetailedTimetable />} />
           </Route>
         </Routes>
       </BrowserRouter>

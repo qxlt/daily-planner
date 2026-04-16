@@ -3,7 +3,7 @@ import { faBars, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import TaskConfirm from "./taskConfirm.jsx";
-import { clearAuthSession, getAuthToken } from "../lib/auth.js";
+import { buildProtectedPath, clearAuthSession, getAuthToken } from "../lib/auth.js";
 
 
 const AddTask = () => {
@@ -123,7 +123,7 @@ const AddTask = () => {
                className="rounded-full w-16 h-16 bg-amber-100 border-2 
               border-amber-100 hover:border-amber-300" />
               <span className="jacques-francois-regular text-md mt-1 text-center forest-green-font">Hi,&nbsp;
-                <Link className="hover:underline" to={"/profile"}>Username</Link>
+                <Link className="hover:underline" to={buildProtectedPath("/profile")}>Username</Link>
               </span>
             </div>
               <FontAwesomeIcon icon={faArrowLeft} className="absolute top-2 right-2" onClick={() => setSideBar(false)} />
@@ -138,9 +138,9 @@ const AddTask = () => {
           <div>
             <li className="flex flex-col justify-start items-start">
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
-              jacques-francois-regular forest-green-font hover:underline" to="/monthly-timetable">View Monthly Calendar</Link>
+              jacques-francois-regular forest-green-font hover:underline" to={buildProtectedPath("/monthly-timetable")}>View Monthly Calendar</Link>
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
-              jacques-francois-regular forest-green-font hover:underline" to="/detailed-timetable">View Current Timetable</Link>
+              jacques-francois-regular forest-green-font hover:underline" to={buildProtectedPath("/detailed-timetable")}>View Current Timetable</Link>
               <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
               jacques-francois-regular forest-green-font hover:underline">Settings</Link>
             </li>
@@ -167,8 +167,8 @@ const AddTask = () => {
                     placeholder="e.g. meeting starts @3. After work date with boyfriend and do laundry before bedtime" 
                   />
                   <div className="flex flex-row justify-between w-3/4 mt-1">
-                    <Link to="/detailed-timetable" className="forest-green-font jacques-francois-regular rounded-lg hover:underline">View Existed Timetable</Link>
-                    <Link to="/manual-tasks" className="forest-green-font jacques-francois-regular rounded-lg hover:underline">Add Fixed-Hour Events</Link>
+                    <Link to={buildProtectedPath("/detailed-timetable")} className="forest-green-font jacques-francois-regular rounded-lg hover:underline">View Existed Timetable</Link>
+                    <Link to={buildProtectedPath("/manual-tasks")} className="forest-green-font jacques-francois-regular rounded-lg hover:underline">Add Fixed-Hour Events</Link>
                   </div>
                 </div>
                 <button onClick={generateTimetable} className="mt-5 button-beige-bg w-1/6 h-auto jacques-francois-regular 

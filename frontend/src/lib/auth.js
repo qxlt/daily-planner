@@ -29,6 +29,20 @@ export const getAuthToken = () => {
   return getAuthSession()?.token || "";
 };
 
+export const getAuthUsername = () => {
+  return getAuthSession()?.user?.username || "";
+};
+
+export const buildProtectedPath = (path, username = getAuthUsername()) => {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  if (!username) {
+    return normalizedPath;
+  }
+
+  return `/u/${username}${normalizedPath}`;
+};
+
 export const isAuthenticated = () => {
   return Boolean(getAuthToken());
 };

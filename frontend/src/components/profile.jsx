@@ -2,6 +2,7 @@ import { faBars, faHouse, faArrowLeft, faLock } from "@fortawesome/free-solid-sv
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { buildProtectedPath } from "../lib/auth.js";
 
 
 const Profile = () => {
@@ -85,7 +86,7 @@ const Profile = () => {
                            className="rounded-full w-16 h-16 bg-amber-100 border-2 
                           border-amber-100 hover:border-amber-300" />
                           <span className="jacques-francois-regular text-md mt-1 text-center forest-green-font">Hi,&nbsp;
-                            <Link className="hover:underline" to={"/profile"}>Username</Link>
+                            <Link className="hover:underline" to={buildProtectedPath("/profile")}>Username</Link>
                           </span>
                         </div>
                           <FontAwesomeIcon icon={faArrowLeft} className="absolute top-2 right-2" onClick={() => setSideBar(false)} />
@@ -100,9 +101,9 @@ const Profile = () => {
                       <div>
                         <li className="flex flex-col justify-start items-start">
                           <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
-                          jacques-francois-regular forest-green-font hover:underline">View Monthly Calendar</Link>
+                          jacques-francois-regular forest-green-font hover:underline" to={buildProtectedPath("/monthly-timetable")}>View Monthly Calendar</Link>
                           <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
-                          jacques-francois-regular forest-green-font hover:underline">View Current Timetable</Link>
+                          jacques-francois-regular forest-green-font hover:underline" to={buildProtectedPath("/detailed-timetable")}>View Current Timetable</Link>
                           <Link className="p-3 border-b-2 w-full border-b-forest-green beige-bg 
                           jacques-francois-regular forest-green-font hover:underline">Settings</Link>
                         </li>
@@ -119,7 +120,7 @@ const Profile = () => {
                 {/* navbar */}
                 <div className="z-50 bg-[url('./pics/colorful-star.jpg')] bg-auto
                 sticky top-0 h-1/12 w-screen shadow-lg shadow-gray-200 flex flex-row justify-start items-center gap-5 p-5">
-                    <FontAwesomeIcon onClick={() => navigate("/addtask")} icon={faHouse} className="text-2xl forest-green-font cursor-pointer" />
+                    <FontAwesomeIcon onClick={() => navigate(buildProtectedPath("/addtask"))} icon={faHouse} className="text-2xl forest-green-font cursor-pointer" />
                     <FontAwesomeIcon onClick={() => setSideBar(true)} icon={faBars} className="text-2xl forest-green-font cursor-pointer" />
                 </div>
 

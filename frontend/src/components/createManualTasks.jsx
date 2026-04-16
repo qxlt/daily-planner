@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { clearAuthSession, getAuthToken } from "../lib/auth.js";
+import { buildProtectedPath, clearAuthSession, getAuthToken } from "../lib/auth.js";
 
 const formatDateForApi = (dateValue) => {
   if (!dateValue) {
@@ -127,7 +127,7 @@ const CreateManualTasks = () => {
             </h1>
           </div>
           <Link
-            to="/addtask"
+            to={buildProtectedPath("/addtask")}
             className="jacques-francois-regular rounded-full bg-white/85 px-4 py-2 text-gray-600
              shadow-sm hover:shadow-md"
           >
