@@ -4,6 +4,7 @@ const port = process.env.PORT || 3001;
 import { signup, login } from "./controllers/authController.js";
 import { createTask, getTasks, getTaskByDate, updateTask, deleteTask, getTaskById } from "./controllers/taskController.js";      
 import { GoogleGenAI } from "@google/genai";
+import { requireAuth } from "./middleware/authMiddleware.js";
 
 const app = express();
 const ai = new GoogleGenAI({})
@@ -19,9 +20,9 @@ app.post("/signup", signup);
 
 app.post("/login", login);
 
-app.post("/add-task", createTask);
+app.post("/add-task", requireAuth, createTask);
 
-app.post("/parse-tasks", async (req, res) => {
+app.post("/parse-tasks", requireAuth, async (req, res) => {
   const { input } = req.body;
 
   try {
@@ -65,15 +66,15 @@ app.post("/parse-tasks", async (req, res) => {
   }
 })
 
-app.get("/tasks", getTasks);
+app.get("/tasks", requireAuth, getTasks);
 
-app.get("/tasks/:id", getTaskById);
+app.get("/tasks/:id", requireAuth, getTaskById);
 
-app.get("/tasks/date/:date", getTaskByDate);
+app.get("/tasks/date/:date", requireAuth, getTaskByDate);
 
-app.put("/tasks/:id", updateTask);
+app.put("/tasks/:id", requireAuth, updateTask);
 
-app.delete("/tasks/:id", deleteTask);
+app.delete("/tasks/:id", requireAuth, deleteTask);
 
 
 

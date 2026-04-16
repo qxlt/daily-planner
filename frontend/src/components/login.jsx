@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import navbar from "./navBar.jsx";
 import { useNavigate } from 'react-router-dom';
+import { setAuthSession } from "../lib/auth.js";
 
 const Login = () => {
 
@@ -23,19 +24,24 @@ const Login = () => {
             });
             const data = await res.json();
             if (res.ok) {
-        // Successful login
-        console.log("Login success:", data);
-        navigate("/addtask");
-      } else {
-        // Backend returned error
-        const message = data.error || "Login failed";
-        setError(message);
-        console.log("Backend error:", message);
-      }
-    } catch (err) {
-      setError("Network error");
-      console.error(err.message);
-    }
+                const message = data.message || "Login successful";
+                if (data.token) {
+                    setAuthSession(data.token, data.user);
+                }
+                setError("");
+                alert(`Congrats! ${message}`);
+                navigate("/addtask");
+            } else {
+                const message = data.error || "Something is wrong with your login credentials.";
+                setError(message);
+                alert(message);
+                console.log("Backend error:", message);
+            }
+        } catch (err) {
+            setError("Network error");
+            alert("Something is wrong. Please try again.");
+            console.error(err.message);
+        }
     };
 
     return(
@@ -44,10 +50,12 @@ const Login = () => {
             {navbar()}
             <h3 className="forest-green-font jacques-francois-regular 
             text-5xl text-center mb-12">Sign in</h3>
-            <div className="bg-[url('./pics/floral-banner.png')] bg-cover 
-            w-1/3 h-1/2 flex flex-col justify-center items-center rounded-lg shadow-lg ">
-                <div className="flex flex-col justify-center 
-                items-center w-3/5">
+            <form
+                onSubmit={handlesubmit}
+                className="bg-[url('./pics/floral-banner.png')] bg-cover 
+                w-1/3 h-1/2 flex flex-col justify-center items-center rounded-lg shadow-lg "
+            >
+                <div className="flex flex-col justify-center items-center w-3/5">
                     <div className="h-1/3 w-full flex flex-col justify-center items-center mb-2">        
                         <label className="forest-green-font jacques-francois-regular 
                         text-2xl w-full text-left mb-2" htmlFor="username">Username/Email:</label>
@@ -58,21 +66,21 @@ const Login = () => {
                     </div>
                     <div className="h-1/3 w-full flex flex-col justify-center items-center mb-2">
                         <label className="forest-green-font jacques-francois-regular text-2xl 
-                        mb-2 w-full text-left" htmlFor="password">Password:<span className="text-red-500" onClick={() => setShowRules(!showRules)}>*</span></label>
+                        mb-2 w-full text-left" htmlFor="password">Password:<span className="text-red-500">*</span></label>
                         <input onChange={(e) => setPassword(e.target.value)} 
                         className="bg-zinc-100 p-2 w-full rounded-3xl h-12 jacques-francois-regular
                         focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300" 
                         type="password" id="password" name="password" />
                     </div>
                     <div className="h-1/3 flex flex-col justify-center items-center my-3">
-                        <button onClick={handlesubmit} className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
+                        <button type="submit" className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
                     text-xl tracking-wider hover:forest-green-bg hover:!text-zinc-100 hover:shadow-lg hover:scale-105 
                     transition duration-300 ease-in-out cursor-pointer">
                         Submit
                         </button>
                     </div>            
                 </div>     
-            </div>
+            </form>
             
         </div>
     )

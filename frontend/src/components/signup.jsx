@@ -56,15 +56,13 @@ const Signup = () => {
             });
             const data = await res.json();
             if (res.ok) {
-                // Successful signup
+                alert(data.message || "Signup successful! You can sign in now.");
                 navigate("/signin");
-                
             } else {
-                // Backend returned error
-                alert(data.message || "Signup failed");
+                alert(data.error || "Something is wrong with your registration details.");
             }
         } catch (err) {
-            alert("Network error");
+            alert("Something is wrong. Please try again.");
             console.error(err);
         }
     };
@@ -76,10 +74,12 @@ const Signup = () => {
             {navbar()}
             <h3 className="forest-green-font jacques-francois-regular
             text-5xl text-center mb-12">Sign up</h3>
-            <div className="bg-[url('./pics/floral-banner.png')] bg-cover 
-            w-1/3 h-2/3 flex flex-col justify-center items-center rounded-lg shadow-lg ">
-                <div className="flex flex-col justify-center 
-                items-center w-3/5">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-[url('./pics/floral-banner.png')] bg-cover 
+                w-1/3 h-2/3 flex flex-col justify-center items-center rounded-lg shadow-lg "
+            >
+                <div className="flex flex-col justify-center items-center w-3/5">
                     <div className="h-1/5 w-full flex flex-col justify-center items-center mb-2">        
                         <label className="forest-green-font jacques-francois-regular 
                         text-2xl w-full text-left mb-2" htmlFor="username">Username:</label>
@@ -99,7 +99,7 @@ const Signup = () => {
 
                     <div className="h-1/5 w-full flex flex-col justify-center items-center mb-2">
                         <label className="forest-green-font jacques-francois-regular text-2xl 
-                        mb-2 w-full text-left" htmlFor="password">Password:<span className="text-red-500" onClick={() => setShowRules(!showRules)}>*</span></label>
+                        mb-2 w-full text-left" htmlFor="password">Password:<span className="text-red-500">*</span></label>
                         <input onChange={(e) => setPassword(e.target.value)} 
                         className={`bg-zinc-100 p-2 w-full rounded-3xl h-12 jacques-francois-regular
                         ${isValid ? `focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300`
@@ -119,7 +119,7 @@ const Signup = () => {
                         type="password" id="confirmPassword" name="confirmPassword" placeholder="confirm your password" />
                     </div>
                     <div className="h-1/5 flex flex-col justify-center items-center my-3">
-                        <button onClick={handleSubmit} className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
+                        <button type="submit" className="bg-zinc-100 forest-green-font jacques-francois-regular p-3 rounded-lg 
                     text-xl tracking-wider hover:forest-green-bg hover:!text-zinc-100 hover:shadow-lg hover:scale-105 
                     transition duration-300 ease-in-out cursor-pointer">
                         Submit
@@ -130,7 +130,7 @@ const Signup = () => {
                 <div className="bg-zinc-100 px-5 rounded-3xl forest-green-font jacques-francois-regular text-lg mt-2">
                         Already has an account? Click <Link to="/signin" className="bg-blue-100 hover:underline">here</Link> to sign in.
                 </div>  
-            </div>
+            </form>
             {!isValid && (
             <div className="jacques-francois-regular fixed right-6 top-1/2 -translate-y-1/2 
             w-72 p-4 bg-white border rounded-2xl shadow-xl z-50 text-sm">

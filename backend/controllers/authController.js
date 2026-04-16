@@ -1,4 +1,5 @@
 import { signupUser, loginUser } from "../services/authService.js";
+import { createSession } from "../services/sessionService.js";
 
 export const signup = async (req, res) => {
   const { email, password, username } = req.body;
@@ -17,5 +18,6 @@ export const login = async (req, res) => {
   const { user, error } = await loginUser(login_credential, password);
 
   if (error) return res.status(400).json({ error });
-  res.status(200).json({ message: "Login successful", user });
+  const token = createSession(user);
+  res.status(200).json({ message: "Login successful", user, token });
 };
